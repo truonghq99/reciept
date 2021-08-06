@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reciept</title>
+</head>
+<body>
+<div>
+    <form th:action="@{/rest/api/save-reciept}" method="post" th:object="${reciept}">
+        <select th:field="*{supplier}">
+            <option th:each="supplier :${listSupplier}" th:text="${supplier.company}"></option>
+        </select>
+        <table>
+            <thead>
+                <tr>
+                    <td></td>
+                </tr>
+            </thead>
+
+        </table>
+    </form>
+</div>
+</body>
+</html>
