@@ -1,24 +1,95 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>Reciept</title>
 </head>
-<body>
-<div>
-    <form th:action="@{/rest/api/save-reciept}" method="post" th:object="${reciept}">
-        <select th:field="*{supplier}">
-            <option th:each="supplier :${listSupplier}" th:text="${supplier.company}"></option>
-        </select>
-        <table>
-            <thead>
-                <tr>
-                    <td></td>
-                </tr>
-            </thead>
 
-        </table>
-    </form>
-</div>
+<body>
+    <div>
+        <form th:action="@{/rest/api/reciept/save-reciept}" method="post" th:object="${reciept}">
+            <select th:field="*{supplier}">
+                <option th:each="supplier :${listSupplier}" th:text="${supplier.company}" th:value="${supplier.id}"></option>
+            </select>
+            <div>
+                <div>
+                    <span>Reciept price</span>
+                    <input id="billPrice" th:field="*{price}" readonly>
+                </div>
+                <div>
+                    <span>Discount</span>
+                    <input id="billDiscount" th:field="*{discount}">
+                </div>
+                <div>
+                    <span>Total</span>
+                    <input id="billTotal" th:field="*{totalPrice}" readonly>
+                </div>
+                <button type="submit">Submit</button>
+            </div>
+            <div align="center" style="color:blue">
+                <H1>List Item</H1>
+            </div>
+            <table border=".5" cellpadding="10" align="center">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Title</td>
+                        <td>Type</td>
+                        <td>mfgDate</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Amount</td>
+                        <td>Discount</td>
+                        <td>Total price</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="for" th:each="recieptItem,stat : *{listRecieptItem}">
+                        <td>
+                            <a th:id="${recieptItem.item.id}" th:name="${stat.index}" th:text="${recieptItem.item.id}"></a>
+                        </td>
+                        <td>
+                            <a th:text="${recieptItem.item.title}"></a>
+                        </td>
+                        <td>
+                            <a th:text="${recieptItem.item.type}"></a>
+                        </td>
+                        <td>
+                            <a th:text="${recieptItem.item.mfgDate}"></a>
+                        </td>
+
+                        <input type="hidden" th:field="*{listRecieptItem[__${stat.index}__].item.id}">
+                        <input type="hidden" th:field="*{listRecieptItem[__${stat.index}__].item.title}">
+                        <input type="hidden" th:field="*{listRecieptItem[__${stat.index}__].item.type}">
+                        <input type="hidden" th:field="*{listRecieptItem[__${stat.index}__].item.mfgDate}">
+
+                        <td>
+                            <input th:id="'price'+${recieptItem.item.id}" th:field="*{listRecieptItem[__${stat.index}__].item.price}" />
+                        </td>
+                        <td>
+                            <input th:id="'quantity'+${recieptItem.item.id}" th:field="*{listRecieptItem[__${stat.index}__].quantity}" />
+                        </td>
+                        <td>
+                            <input th:id="'amount'+${recieptItem.item.id}" th:field="*{listRecieptItem[__${stat.index}__].price}" readonly>
+                        </td>
+                        <td>
+                            <input th:id="'discount'+${recieptItem.item.id}" th:field="*{listRecieptItem[__${stat.index}__].discount}">
+                        </td>
+                        <td>
+                            <input th:id="'totalPrice'+${recieptItem.item.id}" class="totalPrice" th:field="*{listRecieptItem[__${stat.index}__].totalPrice}" readonly />
+                        </td>
+
+
+                    </tr>
+                </tbody>
+                <button type="submit" class="button">Create reciept</button>
+            </table>
+        </form>
+    </div>
 </body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script type="text/javascript" th:src="@{/display.js}"></script>
+
 </html>

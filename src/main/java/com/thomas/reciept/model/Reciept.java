@@ -19,5 +19,5 @@ public class Reciept {
     private float discount;
     private float totalPrice;
     private Supplier supplier;
-    private List<RecieptItem> listItem;
+    private List<RecieptItem> listRecieptItem;
 }
