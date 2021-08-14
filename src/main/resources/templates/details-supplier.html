@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Create store</title>
+</head>
+
+<body>
+
+    <div th:align="center">
+        <h1>Create store</h1>
+        <form th:action="@{'/rest/api/supplier/suppliers/update-supplier/'+*{id}}" th:object="${supplier}" method="post">
+            <table cellspacing="10" border="1">
+                <tr>
+                    <td>Address</td>
+                    <td><input th:field="*{address}" /></td>
+                </tr>
+                <tr>
+                    <td>Company</td>
+                    <td><input th:field="*{company}"></td>
+                </tr>
+                <tr>
+                    <td>Cooperate date</td>
+                    <td><input type="date" th:field="*{cooperateDate}"></td>
+                </tr>
+                <tr>
+
+                </tr>
+                <tr>
+                </tr>
+            </table>
+            <button class="button" type="submit">Update store</button>
+            <a class="button" th:href="@{'/rest/api/supplier/suppliers/delete-supplier/'+*{id}}">Delete store</a>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List item</title>
+</head>
+
+<body>
+
+    <div th:align="center">
+        <h1>List item</h1>
+        <table cellspacing="10" border="1">
+            <tr>
+                <td>ID</td>
+                <td>Title</td>
+                <td>Type</td>
+                <td>MfgDate</td>
+                <td>Price</td>
+                <td>Quantity</td>
+                <td>Active</td>
+                <td>Option</td>
+            </tr>
+            <tr th:each="item: ${listItem}">
+                <td>
+                    <input th:value="*{item.id}" readonly>
+                </td>
+                <td>
+                    <input th:value="*{item.title}" readonly>
+                </td>
+                <td>
+                    <input th:value="*{item.type}" readonly>
+                </td>
+                <td>
+                    <a type="date" th:text="*{item.mfgDate}" th:field="*{item.mfgDate}"></a>
+                </td>
+                <td>
+                    <input th:value="*{item.price}" readonly>
+                </td>
+                <td>
+                    <input th:value="*{item.quantity}" readonly>
+                </td>
+                <td>
+                    <input th:value="*{item.active}" readonly>
+                </td>
+                <td>
+                    <a th:href="@{'/rest/api/item/items/'+ *{item.id}}">Edit</a>
+                </td>
+            </tr>
+        </table>
+        </form>
+    </div>
+</body>
+
+</html>

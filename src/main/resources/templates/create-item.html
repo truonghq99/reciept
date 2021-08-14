@@ -1,20 +1,53 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
 
     <title>Create item</title>
 </head>
-<body>
-    <form th:action="@{/rest/api/items/saveBook}" method="post" th:object="${book}">
-        <input type="text" th:field="*{title}" placeholder="Title" />
-        <input type="text" th:field="*{author}" placeholder="Author" />
-        <input type="text" th:field="*{category}" placeholder="Category" />
-        <input type="text" th:fsield="*{publisher}" placeholder="Publisher" />
-        <input type="text" th:field="*{price}" placeholder="Price" />
-        <input type="date" th:field="*{mfgDate}" placeholder="MfgDate" />
 
-        <button type="submit" value="Submit">Create new book</button>
-    </form>
-</body>
+<body>
+    <div>
+        <H1>Create book</H1>
+        <form th:action="@{/rest/api/item/save-book}" method="post" th:object="${book}">
+            <input type="text" th:field="*{title}" placeholder="Title" />
+            <input type="text" th:field="*{author}" placeholder="Author" />
+            <input type="text" th:field="*{category}" placeholder="Category" />
+            <input type="text" th:field="*{publisher}" placeholder="Publisher" />
+            <input type="text" th:field="*{price}" placeholder="Price" />
+            <input type="date" th:field="*{mfgDate}" placeholder="MfgDate" />
+
+            <button type="submit" value="Submit">Create new book</button>
+        </form>
+    </div>
+
+    <div>
+        <H1>Create Clothes</H1>
+        <form th:action="@{/rest/api/item/save-clothes}" method="post" th:object="${clothes}">
+            <input type="text" th:field="*{title}" placeholder="Title" />
+            <input type="text" th:field="*{brand}" placeholder="Brand" />
+            <input type="text" th:field="*{material}" placeholder="Material" />
+            <input type="text" th:field="*{size}" placeholder="Size" />
+            <input type="text" th:field="*{price}" placeholder="Price" />
+            <input type="date" th:field="*{mfgDate}" placeholder="MfgDate" />
+
+            <button type="submit" value="Submit">Create new clothes</button>
+        </form>
+    </div>
+
+    <div>
+        <H1>Create Electronics</H1>
+        <form th:action="@{/rest/api/item/save-electronics}" method="post" th:object="${electronics}">
+            <input type="text" th:field="*{title}" placeholder="Title" />
+            <input type="text" th:field="*{brand}" placeholder="Brand" />
+            <input type="text" th:field="*{version}" placeholder="Version" />
+            <input type="text" th:field="*{description}" placeholder="Description" />
+            <input type="text" th:field="*{price}" placeholder="Price" />
+            <input type="date" th:field="*{mfgDate}" placeholder="MfgDate" />
+
+            <button type="submit" value="Submit">Create new electrics</button>
+        </form>
+    </div>
+
 </html>

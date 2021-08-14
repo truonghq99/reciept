@@ -28,4 +28,6 @@ public class RecieptService {
     public ArrayList<Reciept> getAllReciepts(){
         return (ArrayList<Reciept>) recieptRepository.findAll();
     }
+
+
 }

@@ -105,9 +105,20 @@ public class ItemService {
     }
     //END UPDATE ITEM
 
+
+    //FIND ITEM
     public ArrayList<Item> getAllItems(){
         return (ArrayList<Item>) itemRepository.findAll();
     }
+
+    public Item findItemById(int id){
+        Item item= new Item();
+        if(itemRepository.existsById(id)){
+            return null;
+        }
+        return null;
+    }
+    //END FIND ITEM
 
 
     //DELETE ITEM

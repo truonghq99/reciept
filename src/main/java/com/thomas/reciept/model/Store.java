@@ -8,28 +8,22 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import java.util.Date;
 
-
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Document
-public class Item {
-
+public class Store {
     @Transient
-    public static final String SEQUENCE_NAME = "item_sequence";
+    public static final String SEQUENCE_NAME ="store_sequence";
 
     @Id
     private int id;
-    private String title;
-    private String type="";
-    private String brand;
+
+    private String address;
+    private String phoneNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date mfgDate;
-    private float price;
-    private int quantity=0;
-    private String active="false";
-    
+    private Date openDate;
+    private String status="pending";
 }

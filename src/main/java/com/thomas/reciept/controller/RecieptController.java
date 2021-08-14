@@ -8,6 +8,7 @@ import com.thomas.reciept.repository.SupplierRepository;
 import com.thomas.reciept.service.ItemService;
 import com.thomas.reciept.service.RecieptService;
 import com.thomas.reciept.service.SequenceGeneratorService;
+import com.thomas.reciept.service.SupplierService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 @Slf4j
 @RequestMapping("/rest/api")
@@ -28,7 +31,7 @@ public class RecieptController {
     @Autowired
     RecieptService recieptService;
     @Autowired
-    SupplierRepository supplierRepository;
+    SupplierService supplierService;
     @Autowired
     ItemService itemService;
     @Autowired
@@ -67,7 +70,7 @@ public class RecieptController {
     public String showReciept(Reciept reciept, Model model){
         log.info("get reciept in controller");
         ArrayList<Item> listItem= itemService.getAllItems();
-        ArrayList<Supplier> listSupllier= (ArrayList<Supplier>) supplierRepository.findAll();
+        ArrayList<Supplier> listSupllier= (ArrayList<Supplier>) supplierService.getAllsupplier();
         model.addAttribute("listSupplier",listSupllier);
         ArrayList<RecieptItem> listRecieptItem= new ArrayList<RecieptItem>();
         for(int i=0;i<listItem.size();i++){
@@ -81,18 +84,56 @@ public class RecieptController {
         return "reciept";
     }
 
-    @RequestMapping(value="/supplier/create-supplier", method = RequestMethod.GET)
-    public String createSupplier(Supplier supplier,Model model) {
+    @GetMapping("/supplier/create-supplier")
+    public String createSupplier(Model model, Supplier supplier){
         model.addAttribute("supplier", supplier);
         return "create-supplier";
+    }
+
+    @GetMapping("/supplier/suppliers")
+    public String getAllsupplier(Supplier supplier, HttpSession session,Model model){
+        ArrayList<Supplier> listsupplier= supplierService.getAllsupplier();
+        model.addAttribute("listSupplier",listsupplier);
+        session.setAttribute("listSupplier", listsupplier);
+        return "list-supplier";
     }
 
     @PostMapping("/supplier/save-supplier")
     public String saveSupplier(Supplier supplier){
         supplier.setId(sequenceGeneratorService.generateSequence(Supplier.SEQUENCE_NAME));
-        supplierRepository.save(supplier);
+        supplierService.savesupplier(supplier);
+        return "redidrec:/";
+    }
+
+    @RequestMapping("/supplier/suppliers/{id}")
+    public String detailssupplier(@PathVariable int id,HttpSession session,Model model){
+        ArrayList<Supplier> listsupplier= (ArrayList<Supplier>) session.getAttribute("listSupplier");
+        Supplier supplier= new Supplier();
+        for(int i=0;i< listsupplier.size();i++){
+            if(listsupplier.get(i).getId()==id){
+                supplier.setId(listsupplier.get(i).getId());
+                supplier.setCompany(listsupplier.get(i).getCompany());
+                supplier.setAddress(listsupplier.get(i).getAddress());
+                supplier.setCooperateDate(listsupplier.get(i).getCooperateDate());
+                break;
+            }
+        }
+        model.addAttribute("supplier", supplier);
+        return "details-supplier";
+    }
+
+    @PostMapping("supplier/suppliers/update-supplier/{id}")
+    public String updatesupplier(@PathVariable int id, Supplier supplier){
+        supplierService.updatesupplier(id, supplier);
         return "index";
     }
+
+    @RequestMapping("supplier/suppliers/delete-supplier/{id}")
+    public String deletesupplier(@PathVariable int id){
+        supplierService.deletesupplier(id);
+        return "redirect:/";
+    }
+    
 
     @GetMapping("/reciept/reciepts")
     public ArrayList<Reciept> ListReciepts(){

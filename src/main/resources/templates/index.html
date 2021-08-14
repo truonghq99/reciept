@@ -8,10 +8,25 @@
 </head>
 
 <body>
-    <h1>ha</h1>
-    <a th:href="@{/rest/api/items/create-item}">Add item</a><br>
-    <a th:href="@{/rest/api/reciept/create-reciept}">Add reciept</a><br>
-    <a th:href="@{/rest/api/supplier/create-supplier}">Add supplier</a>
+    <h1 th:align="center">Admin</h1>
+    <div th:align="center">
+        <table th:border="1" cellspacing="10" c>
+            <tr>
+                <td><a th:href="@{/rest/api/item/create-item}">Add item</a></td>
+                <td><a th:href="@{/rest/api/reciept/create-reciept}">Add reciept</a></td>
+                <td><a th:href="@{/rest/api/supplier/create-supplier}">Add supplier</a></td>
+                <td><a th:href="@{/rest/api/store/create-store}">Add store</a></td>
+            </tr>
+            <tr>
+                <td><a th:href="@{/rest/api/item/items}">List item</a></td>
+                <td></td>
+                <td><a th:href="@{/rest/api/supplier/suppliers}">List supplier</a></td>
+                <td><a th:href="@{/rest/api/store/stores}">List store</a></td>
+            </tr>
+        </table>
+
+
+    </div>
 </body>
 
 </html>

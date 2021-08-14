@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Details item</title>
+</head>
+
+<body>
+
+    <div th:align="center">
+        <h1 th:align="center">Details item</h1>
+        <form th:action="@{'/rest/api/item/items/update-item/'+*{id}}" th:object="${item}" method="post">
+            <table cellspacing="10" th:border="1">
+                <tr>
+                    <td>ID</td>
+                    <td><input th:value="*{id}" th:field="*{id}" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Title</td>
+                    <td><input th:value="*{title}" th:field="*{title}"></td>
+                </tr>
+                <tr>
+                    <td>Type</td>
+                    <td>
+                        <input th:value="*{type}" th:field="*{type}" readonly></td>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Brand</td>
+                    <td><input th:value="*{brand}" th:field="*{brand}"></td>
+                </tr>
+                <tr>
+                    <td>Mfg Date</td>
+                    <td><input type="date" th:field="*{mfgDate}"></td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td><input th:value="*{price}" th:field="*{price}"></td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td><input th:value="*{quantity}" th:field="*{quantity}"></td>
+                </tr>
+                <tr>
+                    <td>Active</td>
+                    <td>
+                        <select th:field="*{active}">
+                            <option th:value="true">true</option>
+                            <option th:value="false">false</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <table th:border="1" cellspacing="10">
+                <tr>
+                    <h2>Electronics's Information</h2>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Version</label>
+                        <input th:value="*{version}" th:field="*{version}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Description</label>
+                        <input th:value="*{description}" th:field="*{description}">
+                    </td>
+                </tr>
+
+            </table>
+            <button class="button" type="submit">Update item</button>
+            <a class="button" th:href="@{'/rest/api/item/items/delete-item/'+*{id}}">Delete item</a>
+        </form>
+
+</body>
+
+</html>

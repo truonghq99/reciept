@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create supplier</title>
+</head>
+
+<body>
+
+    <div th:align="center">
+        <h1>Create supplier</h1>
+        <form th:action="@{/rest/api/supplier/save-supplier}" th:object="${supplier}" method="post">
+            <table cellspacing="10" border="1">
+                <tr>
+                    <td>Name company</td>
+                    <td><input th:field="*{company}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><input th:field="*{address}"></td>
+                </tr>
+                <tr>
+                    <td>Cooperate Date</td>
+                    <td><input type="date" th:field="*{cooperateDate}"></td>
+                </tr>
+            </table>
+            <button type="submit">Add supplier</button>
+        </form>
+    </div>
+</body>
+
+</html>
