@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Export item</title>
+</head>
+
+<body>
+    <h1>Export Item</h1>
+
+    <div>
+        <form th:action="@{/rest/api/item/items/save-export-reciept}" th:object="${recieptStore}" method="post">
+
+            <div>
+                <span>Select Store</span>
+                <select th:field="*{store}">
+                    <option value="null">Choose store to export.....</option>
+                    <option th:each="store: ${listStore}" th:value="${store.id}" th:text="'ID:'+${store.id}+' || '+${store.address}"></option>
+                </select>
+            </div>
+            <table th:align="center" cellspacing="10" border="1">
+                <thead>
+                    <tr>
+                        <td>ID item</td>
+                        <td>Title</td>
+                        <td>Type</td>
+                        <td>mfgDate</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Total price</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="for" th:each="item,stat : *{listItem}">
+                        <td>
+                            <a th:id="${item.id}" th:text="${item.id}" th:name="${stat.index}"></a>
+                            <input type="hidden" th:field="*{listItem[__${stat.index}__].id}">
+                        </td>
+                        <td>
+                            <input th:field="*{listItem[__${stat.index}__].title}" readonly>
+                        </td>
+                        <td>
+                            <input th:field="*{listItem[__${stat.index}__].type}" readonly>
+                        </td>
+                        <td>
+                            <a type="date" th:text="${item.mfgDate}"></a>
+                            <input type="hidden" th:field="*{listItem[__${stat.index}__].mfgDate}">
+                        </td>
+                        <td>
+                            <input th:id="'price'+${item.id}" th:field="*{listItem[__${stat.index}__].price}" readonly>
+                        </td>
+                        <td>
+                            <input th:id="'quantity'+${item.id}" th:field="*{listItem[__${stat.index}__].quantity}">
+                        </td>
+                        <td>
+                            <input th:id="'totalPrice'+${item.id}" class="totalPrice" value=0 readonly>
+                        </td>
+                        <input type="hidden" th:field="*{listItem[__${stat.index}__].active}">
+                </tbody>
+            </table><br>
+            <div align="center">
+                <span>Total cost</span>
+                <input class="totalCost" th:value="*{totalCost}" th:field="*{totalCost}" readonly><br>
+                <button type="submit">EXPORT</button>
+            </div>
+        </form>
+    </div>
+</body>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<script type="text/javascript" th:src="@{/js/export-item.js}"></script>
+
+</html>

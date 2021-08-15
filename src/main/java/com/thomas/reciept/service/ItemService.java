@@ -50,12 +50,14 @@ public class ItemService {
         if(book.getId()==id){
             if(bookRepository.existsById(id)){
                 b.setId(id);
+                b.setTitle(book.getTitle());
                 b.setAuthor(book.getAuthor());
                 b.setType(book.getType());
                 b.setCategory(book.getCategory());
                 b.setMfgDate(book.getMfgDate());
                 b.setPrice(book.getPrice());
                 b.setPublisher(book.getPublisher());
+                b.setActive(book.getActive());
                 bookRepository.save(b);
                 log.info("Update book successfully");
             }else{
@@ -68,12 +70,14 @@ public class ItemService {
         if(electronics.getId()==id){
             if(bookRepository.existsById(id)){
                 e.setId(id);
+                e.setTitle(electronics.getTitle());
                 e.setDescription(electronics.getDescription());
-                e.setType(e.getType());
-                e.setBrand(e.getBrand());
+                e.setType(electronics.getType());
+                e.setBrand(electronics.getBrand());
                 e.setMfgDate(electronics.getMfgDate());
                 e.setPrice(electronics.getPrice());
                 e.setVersion(electronics.getVersion());
+                e.setActive(electronics.getActive());
                 electronicsRepository.save(e);
                 log.info("Update electronics successfully");
             }else{
@@ -86,12 +90,14 @@ public class ItemService {
         if(clothes.getId()==id){
             if(clothesRepository.existsById(id)){
                 c.setId(id);
+                c.setTitle(clothes.getTitle());
                 c.setMaterial(clothes.getMaterial());
                 c.setType(clothes.getType());
                 c.setBrand(clothes.getBrand());
                 c.setMfgDate(clothes.getMfgDate());
                 c.setPrice(clothes.getPrice());
                 c.setSize(clothes.getSize());
+                c.setActive(clothes.getActive());
                 clothesRepository.save(c);
                 log.info("Update clothes successfully");
             }else{
@@ -102,6 +108,10 @@ public class ItemService {
 
     public void updateQuantityItem(Item item, int quantity){
         repository.updateQuantity(item.getId(),quantity);
+    }
+
+    public void updateExportQuantityItem(Item item, int quantity){
+        repository.updateExportItemQuantity(item.getId(),quantity);
     }
     //END UPDATE ITEM
 

@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <title>List item</title>
 </head>
 
 <body>
 
-    <div th:align="center">
-        <h1>List item</h1>
-        <table cellspacing="10" border="1">
+    <div>
+        <h1 th:align="center">List item</h1>
+        <table th:align="center" cellspacing="10" border="1">
+            <a class="button" th:href="@{/rest/api/item/items/export-item}">Export to store</a>
             <tr>
                 <td>ID</td>
                 <td>Title</td>

@@ -28,4 +28,16 @@ public class MongoDB {
         update.set("quantity",newQuantity);
         mongoTemplate.updateFirst(query,update,Item.class);
     }
+
+    public void updateExportItemQuantity(int id, int quantity){
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").is(id));
+        query.fields().include("_id");
+        query.fields().include("quantity");
+        Item item= mongoTemplate.findOne(query, Item.class);
+        int newQuantity= item.getQuantity()-quantity;
+        Update update = new Update();
+        update.set("quantity",newQuantity);
+        mongoTemplate.updateFirst(query,update,Item.class);
+    }
 }

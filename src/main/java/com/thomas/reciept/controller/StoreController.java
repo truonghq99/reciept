@@ -1,6 +1,10 @@
 package com.thomas.reciept.controller;
 
+
+import com.thomas.reciept.model.Inventory;
 import com.thomas.reciept.model.Store;
+import com.thomas.reciept.repository.InventoryRepository;
+import com.thomas.reciept.service.InventoryService;
 import com.thomas.reciept.service.SequenceGeneratorService;
 import com.thomas.reciept.service.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 
@@ -18,6 +22,8 @@ public class StoreController {
 
     @Autowired
     private StoreService storeService;
+    @Autowired
+    private InventoryService inventoryService;
     @Autowired
     private SequenceGeneratorService sequenceGeneratorService;
 
@@ -37,9 +43,9 @@ public class StoreController {
     @GetMapping("/stores")
     public String getAllStore(Store store, HttpSession session,Model model){
         ArrayList<Store> listStore= storeService.getAllStore();
-        System.out.println(listStore.toString());
         model.addAttribute("listStore",listStore);
         session.setAttribute("listStore", listStore);
+
         return "list-store";
     }
 
@@ -71,5 +77,25 @@ public class StoreController {
     public String deleteStore(@PathVariable int id){
         storeService.deleteStore(id);
         return "redirect:/";
+    }
+
+    @GetMapping("/inventory/{id}")
+    public String showInventoryStore(@PathVariable int id, HttpSession session){
+        InventoryRepository in;
+        ArrayList<Store> listStore= (ArrayList<Store>) session.getAttribute("listStore");
+        Store store= new Store();
+        for(int i=0;i< listStore.size();i++){
+            if(listStore.get(i).getId()==id){
+                store.setId(listStore.get(i).getId());
+                store.setStatus(listStore.get(i).getStatus());
+                store.setAddress(listStore.get(i).getAddress());
+                store.setOpenDate(listStore.get(i).getOpenDate());
+                store.setPhoneNumber(listStore.get(i).getPhoneNumber());
+                break;
+            }
+        }
+        System.out.println(store.toString());
+        System.out.println();
+        return "inventory";
     }
 }

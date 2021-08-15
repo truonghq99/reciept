@@ -49,7 +49,6 @@ public class RecieptController {
                 System.out.println(reciept.getListRecieptItem().get(i).getTotalPrice());
                 reciept.getListRecieptItem().remove(i);
                 i--;
-
             }
             else {
                 reciept.getListRecieptItem().get(i).setId(sequenceGeneratorService.generateSequence(RecieptItem.SEQUENCE_NAME));
