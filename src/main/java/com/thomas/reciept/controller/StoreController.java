@@ -30,7 +30,7 @@ public class StoreController {
     @GetMapping("/create-store")
     public String createStore(Store store, Model model){
         model.addAttribute("store",store);
-        return "create-store";
+        return "Create/create-store";
     }
 
     @PostMapping("/save-store")
@@ -64,7 +64,7 @@ public class StoreController {
             }
         }
         model.addAttribute("store", store);
-        return "details-store";
+        return "Details/details-store";
     }
 
     @PostMapping("/stores/update-store/{id}")
@@ -80,8 +80,7 @@ public class StoreController {
     }
 
     @GetMapping("/inventory/{id}")
-    public String showInventoryStore(@PathVariable int id, HttpSession session){
-        InventoryRepository in;
+    public String showInventoryStore(@PathVariable int id, HttpSession session,Model model){
         ArrayList<Store> listStore= (ArrayList<Store>) session.getAttribute("listStore");
         Store store= new Store();
         for(int i=0;i< listStore.size();i++){
@@ -94,8 +93,13 @@ public class StoreController {
                 break;
             }
         }
-        System.out.println(store.toString());
-        System.out.println();
+        Inventory inventory= new Inventory();
+        inventory= inventoryService.findInventoryById(id);
+        // if(inventory==null){
+        //     inventory= new Inventory();
+        //     System.out.println(inventory.toString());
+        // }
+        model.addAttribute("inventory", inventory);
         return "inventory";
     }
 }

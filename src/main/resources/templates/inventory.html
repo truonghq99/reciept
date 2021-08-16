@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Inventory</title>
+</head>
+
+<body>
+    <div>
+        <h1 th:text="'Store ID number ' + ${inventory.store.id}" th:align="center"></h1>
+        <h3 th:text="'ID inventory: '+${inventory.id}" th:align="center"></h3>
+        <table th:align="center" cellpadding="10" th:border="1">
+            <thead>
+                <tr>
+                    <td>ID</td>
+                    <td>Title</td>
+                    <td>Type</td>
+                    <td>mfgDate</td>
+                    <td>Price</td>
+                    <td>Quantity</td>
+                    <td>Active</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item,stat : ${inventory.listItem}">
+                    <td>
+                        <a th:text="*{item.id}"></a>
+                    </td>
+                    <td>
+                        <a th:text="*{item.title}"></a>
+                    </td>
+                    <td>
+                        <a th:text="*{item.type}"></a>
+                    </td>
+                    <td>
+                        <a th:text="*{item.mfgDate}"></a>
+                    </td>
+                    <td>
+                        <a th:text="*{item.price}"></a>
+                    </td>
+                    <td>
+                        <a th:text="*{item.quantity}"></a>
+                    </td>
+                    <td>
+                        <a th:text="*{item.active}"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

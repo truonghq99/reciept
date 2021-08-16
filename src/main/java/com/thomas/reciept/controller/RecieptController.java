@@ -4,7 +4,6 @@ import com.thomas.reciept.model.Item;
 import com.thomas.reciept.model.Reciept;
 import com.thomas.reciept.model.RecieptItem;
 import com.thomas.reciept.model.Supplier;
-import com.thomas.reciept.repository.SupplierRepository;
 import com.thomas.reciept.service.ItemService;
 import com.thomas.reciept.service.RecieptService;
 import com.thomas.reciept.service.SequenceGeneratorService;
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Optional;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -86,7 +85,7 @@ public class RecieptController {
     @GetMapping("/supplier/create-supplier")
     public String createSupplier(Model model, Supplier supplier){
         model.addAttribute("supplier", supplier);
-        return "create-supplier";
+        return "Create/create-supplier";
     }
 
     @GetMapping("/supplier/suppliers")
@@ -101,7 +100,7 @@ public class RecieptController {
     public String saveSupplier(Supplier supplier){
         supplier.setId(sequenceGeneratorService.generateSequence(Supplier.SEQUENCE_NAME));
         supplierService.savesupplier(supplier);
-        return "redidrec:/";
+        return "index";
     }
 
     @RequestMapping("/supplier/suppliers/{id}")
@@ -118,7 +117,7 @@ public class RecieptController {
             }
         }
         model.addAttribute("supplier", supplier);
-        return "details-supplier";
+        return "Details/details-supplier";
     }
 
     @PostMapping("supplier/suppliers/update-supplier/{id}")

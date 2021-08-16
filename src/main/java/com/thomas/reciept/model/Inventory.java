@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Inventory {
 
     @Id
-    private String id;
+    private int id;
 
     private Store store;
 

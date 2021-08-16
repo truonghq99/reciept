@@ -1,6 +1,7 @@
 package com.thomas.reciept.service;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import com.thomas.reciept.model.Inventory;
 import com.thomas.reciept.model.Item;
@@ -22,12 +23,16 @@ public class InventoryService {
     @Autowired
     private MongoDB mongoDb;
 
-    public Inventory create(Inventory inventory){
-        return inventoryRepository.save(inventory);
+    public Inventory findInventoryById(int id){
+        if(inventoryRepository.findInventoryById(id)==null){
+            return null;
+        }else{
+            return inventoryRepository.findInventoryById(id);
+        }
     }
 
     public void updateInventory(Inventory inventory){
-        Inventory inven = inventoryRepository.findByStore(inventory.getStore());
+        Inventory inven =inventoryRepository.findInventoryById(inventory.getId());
         if(inven == null){
             // Inventory i = new Inventory();
             // ArrayList<Item>list= (ArrayList<Item>) itemRepository.findAll();

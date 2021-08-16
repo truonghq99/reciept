@@ -7,7 +7,6 @@ import com.thomas.reciept.model.Inventory;
 import com.thomas.reciept.model.Item;
 import com.thomas.reciept.model.RecieptStore;
 import com.thomas.reciept.model.Store;
-import com.thomas.reciept.repository.BookRepository;
 import com.thomas.reciept.service.InventoryService;
 import com.thomas.reciept.service.ItemService;
 import com.thomas.reciept.service.RecieptService;
@@ -16,7 +15,6 @@ import com.thomas.reciept.service.StoreService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +45,7 @@ public class ItemController {
         model.addAttribute("book",book);
         model.addAttribute("electronics",electronics);
         model.addAttribute("clothes",clothes);
-        return "create-item";
+        return "Create/create-item";
     }
 
     @PostMapping("/save-book")
@@ -151,6 +149,7 @@ public class ItemController {
         recieptStore.setDate(date);
         recieptService.saveRecieptStore(recieptStore);
         Inventory inventory= new Inventory();
+        inventory.setId(recieptStore.getStore().getId());
         inventory.setListItem(recieptStore.getListItem());
         inventory.setStore(recieptStore.getStore());
         inventoryService.updateInventory(inventory);
