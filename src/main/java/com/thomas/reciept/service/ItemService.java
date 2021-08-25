@@ -7,6 +7,9 @@ import com.thomas.reciept.model.Item;
 import com.thomas.reciept.repository.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -119,6 +122,10 @@ public class ItemService {
     //FIND ITEM
     public ArrayList<Item> getAllItems(){
         return (ArrayList<Item>) itemRepository.findAll();
+    }
+
+    public Page<Item> findItems (Pageable pageable){
+        return repository.findItems(pageable);
     }
 
     public Item findItemById(int id){

@@ -1,15 +1,20 @@
 package com.thomas.reciept.repository;
 
+import java.util.List;
+
 import com.thomas.reciept.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.support.PageableExecutionUtils;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class MongoDB {
+public class MongoDB{
 
     private MongoTemplate mongoTemplate;
     @Autowired
@@ -39,5 +44,13 @@ public class MongoDB {
         Update update = new Update();
         update.set("quantity",newQuantity);
         mongoTemplate.updateFirst(query,update,Item.class);
+    }
+
+    public Page<Item> findItems(Pageable pageable){
+        Query query = new Query();
+        long count = this.mongoTemplate.count(query, Item.class);
+        query.with(pageable);
+        List<Item> items = mongoTemplate.find(query, Item.class);
+        return PageableExecutionUtils.getPage(items, pageable, () -> count);
     }
 }

@@ -15,12 +15,17 @@ import com.thomas.reciept.service.StoreService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -73,16 +78,19 @@ public class ItemController {
         return "index";
     }
     @GetMapping("/items")
-    public String getAllItem(Item item, HttpSession session,Model model){
-        ArrayList<Item> listItem= itemService.getAllItems();
-        model.addAttribute("listItem",listItem);
-        session.setAttribute("listItem", listItem);
+    public String getAllItem(@Param(value="page")int page, Item item, HttpSession session,Model model){
+        Pageable pageable = PageRequest.of(page, 2);
+        Page<Item> listItem= itemService.findItems(pageable);
+        List<Item>items=listItem.getContent();
+        System.out.println(listItem);
+        model.addAttribute("listItem",items);
+        session.setAttribute("listItem", items);
         return "list-item";
     }
 
     @GetMapping("/items/{id}")
     public String detailsItem(@PathVariable int id,HttpSession session,Model model){
-        ArrayList<Item> listItem= (ArrayList<Item>) session.getAttribute("listItem");
+        List<Item> listItem= (List<Item>) session.getAttribute("listItem");
         for(int i=0;i< listItem.size();i++){
             if(listItem.get(i).getId()==id){
                 if(listItem.get(i).getType().equalsIgnoreCase("book")){ 

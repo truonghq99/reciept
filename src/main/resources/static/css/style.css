@@ -22,3 +22,10 @@
     border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
     border-image: initial;
 }
+
+.image {
+    align-items: flex-end;
+    display: left;
+    height: 360px;
+    width: 270px;
+}

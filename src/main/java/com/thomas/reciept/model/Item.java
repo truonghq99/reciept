@@ -3,6 +3,8 @@ package com.thomas.reciept.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,6 +12,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 import java.util.Date;
+
+import javax.validation.constraints.NotEmpty;
 
 
 @Data
@@ -23,6 +27,7 @@ public class Item {
 
     @Id
     private int id;
+    @NotEmpty
     private String title;
     private String type="";
     private String brand;

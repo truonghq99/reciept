@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Details member</title>
+</head>
+
+<body>
+
+    <div th:align="center">
+        <h1 th:align="center">Details member</h1>
+        <form th:action="@{'/rest/api/member/members/update-member/'+*{id}}" th:object="${member}" method="post" enctype="multipart/form-data">
+            <img class="image" th:src="@{'/image/user-photos/'+*{id}+'/'+*{image}}">
+            <input type="file" name="imagee" th:field="*{image}" accept="image/jpeg, image/png, image/jpg">
+            <table cellspacing="10" th:border="1">
+                <tr>
+                    <td>ID</td>
+                    <td><input th:value="*{id}" th:field="*{id}" readonly/></td>
+                </tr>
+                <tr>
+                    <td>Username</td>
+                    <td><input th:value="*{username}" th:field="*{username}" readonly></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input th:value="*{password}" th:field="*{password}"></td>
+                </tr>
+                <tr>
+                    <td>Position</td>
+                    <td><input th:value="*{position}" th:field="*{position}"></td>
+                </tr>
+            </table>
+            <br>
+            <table cellspacing="10" th:border="1">
+                <tr>
+                    <td>First name</td>
+                    <td><input th:field="*{firstName}"></td>
+                    <td>Address</td>
+                    <td><input th:field="*{address}"></td>
+                </tr>
+                <tr>
+                    <td>Last name</td>
+                    <td><input th:field="*{lastName}"></td>
+                    <td>District</td>
+                    <td><input th:field="*{district}"></td>
+                </tr>
+                <tr>
+                    <td>Date of birth</td>
+                    <td><input type="date" th:value="*{dateOfBirth}" th:field="*{dateOfBirth}"></td>
+                    <td>City</td>
+                    <td><input th:field="*{city}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input th:field="*{email}"></td>
+                    <td>State</td>
+                    <td><input th:field="*{state}"></td>
+                </tr>
+                <tr>
+                    <td>Phone number</td>
+                    <td><input th:field="*{phoneNumber}"></td>
+                    <td>Country</td>
+                    <td><input th:field="*{country}"></td>
+                </tr>
+
+            </table>
+            <button class="button" type="submit">Update member</button>
+            <a class="button" th:href="@{'/rest/api/member/members/delete-member/'+*{id}}">Delete member</a>
+        </form>
+
+</body>
+
+</html>
